@@ -1,0 +1,228 @@
+         TITLE 'INTEGRATOR - TCP/IP INTERNAL API STUBS'                 00010000
+***********************************************************************
+*                                                                     *
+*     COPYRIGHT Mainframe Power Corporation 2003, 2004, 2005          *
+*      ALL RIGHTS RESERVED. USE PERMISSIBLE BY LICENSE ONLY.          *
+*                                                                     *
+*      THIS DOCUMENT CONTAINS CONFIDENTIAL TRADE SECRET AND           *
+*      COPYRIGHTED INFORMATION. ANY UNAUTHORIZED USE OF ANY           *
+*			 KIND, INCLUDING, WITHOUT LIMITATION, DUPLICATION,              *
+*			 REENGINEERING, REVERSE ENGINEERING, OR DISCLOSURE,             *
+*			 IN PART OR IN WHOLE, IS PROHIBITED.                            *
+*                                                                     *
+*                                                                     *
+*     CHANGE LOG:                                                     *
+*                                                                     *
+*     DATE     BY     MOD ID                DESCRIPTION               *
+*    --------  ---   ---------   ------------------------------       *
+*   12/06/04   BXK                 REMOVE EXTRANEOUS  CHARACTERS      *
+*                                                                     *
+***********************************************************************
+                                                                        00020000
+         PRINT NOGEN                                                    00030000
+                                                                        00040000
+         TCPINCL ,                                                      00050000
+         SOCKINCL ,                                                     00060000
+                                                                        00070000
+         PRINT GEN                                                      00080000
+                                                                        00090000
+*-<DOC-ON>------------------------------------------------------------- 00100000
+*                                                                       00110000
+* ROUTINE: TCPAPI - TCP/IP INTERNAL API STUBS                           00120000
+*                                                                       00130000
+* DESCRIPTION:                                                          00140000
+*                                                                       00150000
+*    THIS SOURCE MODULE PROVIDES ALL THE API STUBS FOR THE INTEGRATOR   00160000
+*    TCP/IP SERVICES.  THE SOURCE MODULE IS ASSEMBLY-ONLY.              00170000
+*    THE OBJECT MODULE OUTPUT SHOULD BE DIRECTED TO MEMBER              00180000
+*    -- TCPAPI -- IN THE INTEGRATOR OBJECT MODULE LIBRARY.              00190000
+*    THIS OBJECT MODULE SHOULD BE EXPLICITLY INCLUDED IN THE LINK-EDIT  00200000
+*    OF ANY PROGRAM USING THE INTEGRATOR TCP/IP SERVICES.               00210000
+*                                                                       00220000
+*    A SAMPLE LINK-EDIT CONTROL FOR AN INTEGRATOR APPLICATION:          00230000
+*                                                                       00240000
+*        INCLUDE INTOBJ(ITCPSAMP)                                       00250000
+*        INCLUDE INTOBJ(TCPAPI)                                         00260000
+*        INCLUDE INTOBJ(IMSGCFNC)                                       00270000
+*        MODE    AMODE(31),RMODE(ANY)                                   00280000
+*        ENTRY   ITCPSAMP                                               00290000
+*        NAME    ITCPSAMP(R)                                            00300000
+*                                                                       00310000
+*-<DOC-OFF>------------------------------------------------------------ 00320000
+         EJECT ,                                                        00330000
+
+TCPAPI   CSECT                                                          00420000
+TCPAPI   AMODE 31                                                       00430000
+TCPAPI   RMODE ANY                                                      00440000
+                                                                        00450000
+         ENTRY TCPTRCR,TCPTRCI,TCPGETA,TCPRETA,TCPGETP,TCPRETP          00460000
+         ENTRY TCPSTRTP,TCPSTOPP,TCPLOCK,TCPUNLK,TCPFTS,TCPLPAB         00470000
+         ENTRY TCPIUCV,TCPPOST,TCPCSU,TCPCUS,TCPDUS,TCPRTS,TCPQRQ       00480000
+         ENTRY TCPGETB,TCPRETB,TCPLSOB,TCPKSK,TCPLAP,TCPDAP,TCPSAP      00490000
+         ENTRY TCPEDMK,TCPCIR,TCPPAWS                                   00500000
+                                                                        00510000
+TCPSAP   DS    0H                         START APPLICATION             00520000
+         USING TCPSAP,R15                                               00530000
+         BAS   R15,TCCOMMON                                             00540000
+         DC    AL2(ITC@ASAP-ITC)                                        00550000
+                                                                        00560000
+TCPLAP   DS    0H                         LOAD APPLICATION              00570000
+         USING TCPLAP,R15                                               00580000
+         BAS   R15,TCCOMMON                                             00590000
+         DC    AL2(ITC@ALDA-ITC)                                        00600000
+                                                                        00610000
+TCPDAP   DS    0H                         DELETE APPLICATION            00620000
+         USING TCPDAP,R15                                               00630000
+         BAS   R15,TCCOMMON                                             00640000
+         DC    AL2(ITC@ADLA-ITC)                                        00650000
+                                                                        00660000
+TCPPAWS  DS    0H                         PAUSE                         00670000
+         USING TCPPAWS,R15                                              00680000
+         BAS   R15,TCCOMMON                                             00690000
+         DC    AL2(ITC@APAU-ITC)                                        00700000
+                                                                        00710000
+TCPTRCR  DS    0H                         TRACE REQUEST                 00720000
+         USING TCPTRCR,R15                                              00730000
+         BAS   R15,TCCOMMON                                             00740000
+         DC    AL2(ITC@ATRQ-ITC)                                        00750000
+                                                                        00760000
+TCPTRCI  DS    0H                         TRACE INTERRUPT               00770000
+         USING TCPTRCI,R15                                              00780000
+         BAS   R15,TCCOMMON                                             00790000
+         DC    AL2(ITC@ATRI-ITC)                                        00800000
+                                                                        00810000
+TCPGETA  DS    0H                         GET AIR                       00820000
+         USING TCPGETA,R15                                              00830000
+         BAS   R15,TCCOMMON                                             00840000
+         DC    AL2(ITC@AGTA-ITC)                                        00850000
+                                                                        00860000
+TCPRETA  DS    0H                         RETURN AIR                    00870000
+         USING TCPRETA,R15                                              00880000
+         BAS   R15,TCCOMMON                                             00890000
+         DC    AL2(ITC@ARTA-ITC)                                        00900000
+                                                                        00910000
+TCPGETB  DS    0H                         GET SOB                       00920000
+         USING TCPGETB,R15                                              00930000
+         BAS   R15,TCCOMMON                                             00940000
+         DC    AL2(ITC@AGTB-ITC)                                        00950000
+                                                                        00960000
+TCPRETB  DS    0H                         RETURN SOB                    00970000
+         USING TCPRETB,R15                                              00980000
+         BAS   R15,TCCOMMON                                             00990000
+         DC    AL2(ITC@ARTB-ITC)                                        01000000
+                                                                        01010000
+TCPGETP  DS    0H                         GET PAB                       01020000
+         USING TCPGETP,R15                                              01030000
+         BAS   R15,TCCOMMON                                             01040000
+         DC    AL2(ITC@AGTP-ITC)                                        01050000
+                                                                        01060000
+TCPRETP  DS    0H                         RETURN PAB                    01070000
+         USING TCPRETP,R15                                              01080000
+         BAS   R15,TCCOMMON                                             01090000
+         DC    AL2(ITC@ARTP-ITC)                                        01100000
+                                                                        01110000
+TCPLOCK  DS    0H                         GET TCP/IP LOCK               01120000
+         USING TCPLOCK,R15                                              01130000
+         BAS   R15,TCCOMMON                                             01140000
+         DC    AL2(ITC@ALOK-ITC)                                        01150000
+                                                                        01160000
+TCPUNLK  DS    0H                         RELEASE TCP/IP LOCK           01170000
+         USING TCPUNLK,R15                                              01180000
+         BAS   R15,TCCOMMON                                             01190000
+         DC    AL2(ITC@AULK-ITC)                                        01200000
+
+TCPSTRTP DS    0H                         START PATH                    01220000
+         USING TCPSTRTP,R15                                             01230000
+         BAS   R15,TCCOMMON                                             01240000
+         DC    AL2(ITC@ASTP-ITC)                                        01250000
+                                                                        01260000
+TCPSTOPP DS    0H                         STOP PATH                     01270000
+         USING TCPSTOPP,R15                                             01280000
+         BAS   R15,TCCOMMON                                             01290000
+         DC    AL2(ITC@ASPP-ITC)                                        01300000
+                                                                        01310000
+TCPFTS   DS    0H                         FUNCTION-TO-STRING            01320000
+         USING TCPFTS,R15                                               01330000
+         BAS   R15,TCCOMMON                                             01340000
+         DC    AL2(ITC@AFTS-ITC)                                        01350000
+                                                                        01360000
+TCPLPAB  DS    0H                         LOCATE PAB                    01370000
+         USING TCPLPAB,R15                                              01380000
+         BAS   R15,TCCOMMON                                             01390000
+         DC    AL2(ITC@ALPB-ITC)                                        01400000
+                                                                        01410000
+TCPLSOB  DS    0H                         LOCATE SOB                    01420000
+         USING TCPLSOB,R15                                              01430000
+         BAS   R15,TCCOMMON                                             01440000
+         DC    AL2(ITC@ALSB-ITC)                                        01450000
+                                                                        01460000
+TCPIUCV  DS    0H                         COMMON IUCV SEND ROUTINE      01470000
+         USING TCPIUCV,R15                                              01480000
+         BAS   R15,TCCOMMON                                             01490000
+         DC    AL2(ITC@AIUC-ITC)                                        01500000
+                                                                        01510000
+TCPCIR   DS    0H                         COMMON IUCV CANCEL ROUTINE    01520000
+         USING TCPCIR,R15                                               01530000
+         BAS   R15,TCCOMMON                                             01540000
+         DC    AL2(ITC@ACIR-ITC)                                        01550000
+                                                                        01560000
+TCPPOST  DS    0H                         POST USER REQUEST             01570000
+         USING TCPPOST,R15                                              01580000
+         BAS   R15,TCCOMMON                                             01590000
+         DC    AL2(ITC@APST-ITC)                                        01600000
+                                                                        01610000
+TCPCSU   DS    0H                         CREATE SOCKET USER            01620000
+         USING TCPCSU,R15                                               01630000
+         BAS   R15,TCCOMMON                                             01640000
+         DC    AL2(ITC@ACSU-ITC)                                        01650000
+                                                                        01660000
+TCPCUS   DS    0H                         CREATE USER SOCKET            01670000
+         USING TCPCUS,R15                                               01680000
+         BAS   R15,TCCOMMON                                             01690000
+         DC    AL2(ITC@ACUS-ITC)                                        01700000
+                                                                        01710000
+TCPDUS   DS    0H                         DESTROY USER SOCKET           01720000
+         USING TCPDUS,R15                                               01730000
+         BAS   R15,TCCOMMON                                             01740000
+         DC    AL2(ITC@ADUS-ITC)                                        01750000
+                                                                        01760000
+TCPRTS   DS    0H                         RETCODE-TO-STRING             01770000
+         USING TCPRTS,R15                                               01780000
+         BAS   R15,TCCOMMON                                             01790000
+         DC    AL2(ITC@ARTS-ITC)                                        01800000
+                                                                        01810000
+TCPQRQ   DS    0H                         API REQUEST QUEUEING          01820000
+         USING TCPQRQ,R15                                               01830000
+         BAS   R15,TCCOMMON                                             01840000
+         DC    AL2(ITC@AQRQ-ITC)                                        01850000
+                                                                        01860000
+TCPKSK   DS    0H                         KILLSOCKET                    01870000
+         USING TCPKSK,R15                                               01880000
+         BAS   R15,TCCOMMON                                             01890000
+         DC    AL2(ITC@AKSK-ITC)                                        01900000
+                                                                        01910000
+TCPEDMK  DS    0H                         EDIT-AND-MARK SERVICE         01920000
+         USING TCPEDMK,R15                                              01930000
+         BAS   R15,TCCOMMON                                             01940000
+         DC    AL2(ITC@AEMK-ITC)                                        01950000
+                                                                        01960000
+TCCOMMON DS    0H                                                       01970000
+         STM   R14,R12,12(R13)                                          01980000
+         DROP  R15                                                      01990000
+         BASR  R8,0                                                     02000000
+         USING *,R8                                                     02010000
+         @RESTENV ,                       ENSURE ENVIRONMENT            02020000
+         L     R9,ICTTCPVT-ICVT(,R11)     ESTABLISH ITC                 02030000
+         LH    R15,0(,R15)                OFFSET OF ENTRY POINT ADDRESS 02040000
+         L     R15,0(R15,R9)              REAL ENTRY POINT ADDRESS      02050000
+         L     R14,12(,R13)               RESTORE CALLER REGS           02060000
+         LM    R0,R12,20(R13)             EXCEPT FOR R15                02070000
+         BR    R15                        AND ENTER REAL API ROUTINE    02080000
+         LTORG ,                                                        02090000
+         PRINT NOGEN                                                    02100000
+         EQUS  ,                          GENERAL EQUATES               02110000
+         IHAPSA ,                         MVS PREFIXED SAVE AREA        02120000
+         IKJTCB ,                         MVS TASK CONTROL BLOCK        02130000
+         ICVT  ,                          INTEGRATOR CVT                02140000
+         ITASK ,                          INTEGRATOR TASK BLOCK         02150000
+         END   ,                                                        02160000
